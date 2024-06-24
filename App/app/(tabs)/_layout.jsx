@@ -2,6 +2,23 @@ import React from 'react'
 import {Tabs} from 'expo-router'
 import { Ionicons } from '@expo/vector-icons';
 import {Colors} from './../../constants/Colors';
+import { Pressable } from 'react-native';
+import { useAuth } from '@clerk/clerk-expo';
+
+
+export const LogoutButton = () => {
+    const { signOut } = useAuth();
+  
+    const doLogout = () => {
+      signOut();
+    };
+  
+    return (
+      <Pressable onPress={doLogout} style={{ marginRight: 10 }}>
+        <Ionicons name="log-out-outline" size={24} color={'#000'} />
+      </Pressable>
+    );
+  };
 
 
 export default function TabLayout(){
@@ -22,9 +39,12 @@ export default function TabLayout(){
             <Tabs.Screen name='profile'
             options={{
                 tabBarLabel: 'Profile',
-                tabBarIcon:({color})=><Ionicons name="people-circle" size={24} color={color} />
-            }}            
+                tabBarIcon:({color})=><Ionicons name="people-circle" size={24} color={color} />,
+                headerRight: () => <LogoutButton />,
+            }}  
+                      
             />
+            
         </Tabs>
 
     )

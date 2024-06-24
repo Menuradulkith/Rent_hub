@@ -1,33 +1,17 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
-import * as WebBrowser from "expo-web-browser";
-import { useOAuth } from "@clerk/clerk-expo";
-import { useWarmUpBrowser } from "./../hooks/useWarmUpBrowser";
+/*
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSignIn } from '@clerk/clerk-expo';
+import { Link } from 'expo-router';
+import React, { useState } from 'react';
+import { View, StyleSheet, TextInput, Button, Pressable, Text, Alert,Image } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
-WebBrowser.maybeCompleteAuthSession();
-export default function LoginScreen() {
 
-        useWarmUpBrowser();
+export default function Start() {
 
-        const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
-        const onPress = React.useCallback(async () => {
-          try {
-            const { createdSessionId, signIn, signUp, setActive } =
-              await startOAuthFlow();
-      
-            if (createdSessionId) {
-              setActive({ session: createdSessionId });
-            } else {
-              // Use signIn or signUp for next steps such as MFA
-            }
-          } catch (err) {
-            console.error("OAuth error", err);
-          }
-        }, []);
 
         return (
         <View style={{
@@ -57,11 +41,14 @@ export default function LoginScreen() {
                 <Text style={{fontSize: 16, fontFamily: 'outfit', textAlign: 'center', marginVertical: 20, color: '#000000'}}>Find your favourite business near your and post your own business to your community</Text>
 
             </View>
+            <Link href="/login" asChild>
+            <Pressable  style={styles.button}>
+            <Text style={{color:'#fff',fontFamily:'outfit',fontSize:18}}>Get Start  <Icon name='arrow-right' size={15} color='#fff'/></Text>
+            </Pressable>
+            </Link>            
             
-            <TouchableOpacity style={{backgroundColor:'rgba(185, 80, 235, 1)',padding: 16,borderRadius:99,borderWidth: 1,width:'60%',alignItems:'center',marginLeft:80}} onPress={onPress}> 
-                    <Text style={{color:'#fff',fontFamily:'outfit',fontSize:18}} >Get Started  <Icon name='arrow-right' size={15} color='#fff'/></Text>
-            </TouchableOpacity>
+
         </View>
     );
     
-}
+}*/
