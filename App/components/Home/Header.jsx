@@ -8,14 +8,15 @@ export default function Header() {
     return (
         <View style={{
             padding: 20,
-            paddingTop: 40
+            paddingTop: 40,
+            backgroundColor: '#fff'
          }}>
             <View>
                 <Image
                     source={{ uri: user?.imageUrl }}
                     style={{
-                        width: 45,
-                        height: 45,
+                        width: 46,
+                        height: 46,
                         borderRadius: 99
                     }}
                 />

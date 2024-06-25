@@ -2,6 +2,7 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { Slot, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
 import * as SecureStore from 'expo-secure-store';
+import{useFonts} from "expo-font";
 
 
 const CLERK_PUBLISHABLE_KEY = 'pk_test_dG91Y2hpbmctYmVkYnVnLTQ0LmNsZXJrLmFjY291bnRzLmRldiQ';
@@ -46,6 +47,11 @@ const tokenCache = {
 };
 
 const RootLayout = () => {
+  useFonts({
+    'outfit':require('./../assets/fonts/Outfit-Regular.ttf'),
+    'outfit-medium':require('./../assets/fonts/Outfit-Medium.ttf'),
+    'outfit-bold':require('./../assets/fonts/Outfit-Bold.ttf'),
+  })
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} tokenCache={tokenCache}>
       <InitialLayout />

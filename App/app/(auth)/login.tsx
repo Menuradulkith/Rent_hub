@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Button, Pressable, Text, Alert } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import LottieView from 'lottie-react-native';
 
 const Login = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -33,9 +34,12 @@ const Login = () => {
 
   return (
     <View style={styles.content}>
+      <View style={styles.welcome}>
+        <LottieView style={{flex:1}} source={require('../../assets/animation/2.json')} autoPlay loop/>
+      </View>
     <View style={styles.container}>
       <Spinner visible={loading} />
-      <Text style={{fontSize:33,fontFamily:, paddingBottom:30}}>Hi</Text>
+      <Text style={{fontSize:33, fontFamily:'outfit-bold', paddingBottom:30,textAlign:'center'}}>Hi!, Please Login</Text>
       <Text style={{padding:5}}>Email</Text>
       <TextInput  autoCapitalize="none" placeholder="example@gmail.com" value={emailAddress} onChangeText={setEmailAddress} style={styles.inputField} />
       <Text  style={{padding:5}}>Password</Text>
@@ -62,22 +66,23 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   content:{
-    backgroundColor:'#6c47ff'
+    backgroundColor:'#6c47ff',
+    padding:5,
 
   },
   container: {
-    marginTop:'80%',
+    
     justifyContent: 'center',
     padding: 20,
-    paddingBottom:120,
+    paddingBottom:140,
     width: '100%',
     height: '65%',
     backgroundColor: '#fff', 
     borderWidth: 1, 
     borderColor: '#ccc', 
     borderRadius: 40, 
-    borderBottomLeftRadius: 0, 
-    borderBottomRightRadius: 0,
+    //borderBottomLeftRadius: 0, 
+    //borderBottomRightRadius: 0,
     shadowColor: '#000000', // Shadow color
     shadowOffset: { width: 0, height: 0 }, // Shadow offset
     shadowOpacity: 0.2, // Shadow opacity
@@ -130,6 +135,10 @@ const styles = StyleSheet.create({
   signUpText: {
     color: '#fff',
     fontSize: 18,
+  },
+  welcome:{
+    height:310, 
+    
   },
 
 });
