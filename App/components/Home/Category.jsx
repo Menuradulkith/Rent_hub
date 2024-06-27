@@ -33,14 +33,14 @@ export default function Category(){
                 style={{padding: 10}}
                 renderItem={({item, index}) => (
                     <TouchableOpacity onPress={() => handleIconPress(item)}>
-                        <View>
+                        
                             <View>
                                 <Image source={{uri: item.icon}}
                                        style={{width: 60, height: 60, borderRadius: 99, marginLeft: 15}}
                                 />
                                 <Text style={{fontSize: 12, fontFamily: 'outfit-Medium', textAlign: 'center', padding: 5, paddingLeft: 20}}>{item.name}</Text>
                             </View>
-                        </View>
+                        
                     </TouchableOpacity>
                  )} />
         </View>
