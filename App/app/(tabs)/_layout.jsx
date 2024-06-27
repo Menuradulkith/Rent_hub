@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import {Colors} from './../../constants/Colors';
 import { Pressable } from 'react-native';
 import { useAuth } from '@clerk/clerk-expo';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 
 export const LogoutButton = () => {
@@ -30,16 +32,25 @@ export default function TabLayout(){
                 tabBarIcon:({color})=><Ionicons name="home" size={24} color={color} />
             }}
             />
-            <Tabs.Screen name='explore'
+            <Tabs.Screen name='shop'
             options={{
-                tabBarLabel: 'Explore',
-                tabBarIcon:({color})=><Ionicons name="search" size={24} color={color} />
+                tabBarLabel: 'Shop',
+                tabBarIcon:({color})=><MaterialCommunityIcons name="shopping-outline" size={24} color={color} /> 
              }}
+            />
+
+            <Tabs.Screen name='cart'
+            options={{
+                tabBarLabel: 'cart',
+                tabBarIcon:({color})=><Ionicons name="cart-outline" size={24} color={color} />
+                
+            }}  
+                      
             />
             <Tabs.Screen name='profile'
             options={{
-                tabBarLabel: 'Profile',
-                tabBarIcon:({color})=><Ionicons name="people-circle" size={24} color={color} />,
+                tabBarLabel: 'Account',
+                tabBarIcon:({color})=><MaterialCommunityIcons name="account-outline" size={24} color={color} />,
                 headerRight: () => <LogoutButton />,
             }}  
                       
