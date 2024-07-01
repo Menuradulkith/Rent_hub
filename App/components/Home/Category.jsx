@@ -3,16 +3,19 @@ import React from 'react'
 import {collection,query,getDocs} from 'firebase/firestore';
 import {db} from './../../configs/FirebaseConfig';
 import { useState,useEffect } from 'react';
+import {useRouter} from 'expo-router';
+import CategoryItem from '../../components/Home/CategoryItem';
 
 export default function Category(){
 
     const [categoryList, setCategoryList]=useState([]);
+    const router = useRouter();
 
     useEffect(()=>{
         GetCategoryList()
     },[])
     const GetCategoryList= async()=>{
-        setCategoryList([]);
+        
         const q=query(collection(db,'Category'));
         const querySnapshot=await getDocs(q);
 
@@ -30,18 +33,14 @@ export default function Category(){
             <FlatList
                 data={categoryList}
                 horizontal={true}
-                style={{padding: 10}}
+                
                 renderItem={({item, index}) => (
-                    <TouchableOpacity onPress={() => handleIconPress(item)}>
-                        
-                            <View>
-                                <Image source={{uri: item.icon}}
-                                       style={{width: 60, height: 60, borderRadius: 99, marginLeft: 15}}
-                                />
-                                <Text style={{fontSize: 12, fontFamily: 'outfit-Medium', textAlign: 'center', padding: 5, paddingLeft: 20}}>{item.name}</Text>
-                            </View>
-                        
-                    </TouchableOpacity>
+                    <CategoryItem 
+                    category={item} 
+                    key={index}
+                    onCategoryPress={(category)=>router.push('/itemlist/'+ item.name)}
+                    />
+
                  )} />
         </View>
     )
@@ -49,7 +48,6 @@ export default function Category(){
 
 
 
-const handleIconPress = (item) => {
-    // Handle icon press logic here
-    console.log('Icon pressed:', item);
-}
+
+
+

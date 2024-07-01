@@ -20,5 +20,3 @@ export default function home(){
     )
 }
 
-
-//<View style={{height:500}}></View>
