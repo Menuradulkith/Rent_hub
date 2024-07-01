@@ -1,9 +1,15 @@
-import {View, Text,Image} from 'react-native'
+import {View, Text,Image, TouchableOpacity} from 'react-native'
 import React from 'react'
+import { useRouter } from 'expo-router'
 
 export default function ItemListCard({List}){
+    const router=useRouter();
     return(
-        <View style={{padding:10,margin:10,borderRadius:15, backgroundColor:'#ffffff', display:'flex',flexDirection:'row'}}>
+        <TouchableOpacity style={{padding:10,margin:10,borderRadius:15, backgroundColor:'#ffffff', display:'flex',flexDirection:'row'}}
+            onPress={()=>router.push('/itemdetail/'+List.id)}
+            
+        >
+           
            <Image source={{uri:List.imageUrl}}
                  style={{width:120, height:120, borderRadius:15}}
           />
@@ -17,6 +23,6 @@ export default function ItemListCard({List}){
             </View>
           </View>
             
-        </View>
+        </TouchableOpacity>
     )
 }

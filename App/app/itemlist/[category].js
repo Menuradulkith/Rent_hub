@@ -8,36 +8,33 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function ItemCollection() {
     const navigation = useNavigation();
+    /*useNavigation() is a hook provided by Expo's expo-router package. It gives you access to the navigation object that allows you to navigate between screens in your React Native app.*/
     const { category } = useLocalSearchParams();
+    /*useLocalSearchParams() is used to retrieve parameters (like category in this case) from the current route's query parameters. This is often used when you want to pass data between screens or components via route parameters.*/
     const [itemList, setItemList] = useState([]);
-    const[loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Initially set to true
 
     useEffect(() => {
         getItemList();
     }, [category]);
 
     const getItemList = async () => {
-        try {
-            setLoading(true);
-            const q = query(collection(db, 'ItemList'), where('category', '==', category));
-            const querySnapshot = await getDocs(q);
+        setLoading(true); // Set loading state to true before fetching data
+        
+        const q = query(collection(db, 'ItemList'), where('category', '==', category));
+        const querySnapshot = await getDocs(q);
 
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
-            });
+        const items = [];
+        querySnapshot.forEach((doc) => {
+            items.push({ id: doc.id, ...doc.data() });
+        });
 
-            setItemList(items);
-        } catch (error) {
-            console.error('Error fetching item list:', error);
-            // Handle error state or display an error message
-        }
-        setLoading(false);
+        setItemList(items);
+        setLoading(false); // Set loading state to false after data is fetched
     };
 
     const handleBackPress = () => {
-        // Navigate back to previous screen
-        navigation.goBack();
+        navigation.goBack(); // Navigate back to previous screen
     };
 
     return (
@@ -45,30 +42,25 @@ export default function ItemCollection() {
             {/* Custom Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-                    <Text style={styles.backButtonText}><Ionicons name="chevron-back" size={24}  /></Text>
+                    <Ionicons name="chevron-back" size={24} color="#fff" />
                 </TouchableOpacity>
                 <Text style={styles.headerText}>{category}</Text>
             </View>
+
             {/* Item List */}
-            {itemList.length > 0 ? (
-               loading === false ? (
-                  <FlatList
+            {loading ? (
+                <ActivityIndicator size="large" color="#000" style={{ marginTop: '30%' }} />
+            ) : itemList.length > 0 ? (
+                <FlatList
                     data={itemList}
+                    renderItem={({ item }) => <ItemListCard List={item} key={item.id} />}
+                    keyExtractor={(item) => item.id}
                     onRefresh={getItemList}
                     refreshing={loading}
-                    renderItem={({ item }) => (
-                  <ItemListCard
-                    List={item}
-                    key={item.id}
                 />
+            ) : (
+                <Text style={styles.noItemsText}>No Items Found</Text>
             )}
-        />
-    ) : (
-        <ActivityIndicator size={'large'} color={'#000'} style={{marginTop:'30%'}} />
-    )
-) : (
-    <Text style={{fontSize: 20, fontFamily: 'outfit-bold', color: '#a8a8a6', textAlign: 'center', marginTop: '60%'}}>No Item Found</Text>
-)}
         </View>
     );
 }
@@ -77,12 +69,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f0f0f0',
-        
     },
     header: {
-        display:'flex',
-        flexDirection:'row',
-        
+        flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#800080',
         paddingHorizontal: 10,
@@ -90,23 +79,20 @@ const styles = StyleSheet.create({
     },
     backButton: {
         paddingHorizontal: 10,
-    },
-    backButtonText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginTop:30
+        marginTop: 25,
     },
     headerText: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginLeft:120,
         color: '#fff',
-        
-        marginTop:30
+        marginLeft: 120,
+        marginTop: 30,
+    },
+    noItemsText: {
+        fontSize: 20,
+        fontFamily: 'outfit-bold',
+        color: '#a8a8a6',
+        textAlign: 'center',
+        marginTop: '60%',
     },
 });
-
-
-
-
