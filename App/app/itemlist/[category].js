@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation, useLocalSearchParams } from 'expo-router';
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from './../../configs/FirebaseConfig';
@@ -10,6 +10,7 @@ export default function ItemCollection() {
     const navigation = useNavigation();
     const { category } = useLocalSearchParams();
     const [itemList, setItemList] = useState([]);
+    const[loading,setLoading] = useState(false);
 
     useEffect(() => {
         getItemList();
@@ -17,6 +18,7 @@ export default function ItemCollection() {
 
     const getItemList = async () => {
         try {
+            setLoading(true);
             const q = query(collection(db, 'ItemList'), where('category', '==', category));
             const querySnapshot = await getDocs(q);
 
@@ -30,6 +32,7 @@ export default function ItemCollection() {
             console.error('Error fetching item list:', error);
             // Handle error state or display an error message
         }
+        setLoading(false);
     };
 
     const handleBackPress = () => {
@@ -47,17 +50,25 @@ export default function ItemCollection() {
                 <Text style={styles.headerText}>{category}</Text>
             </View>
             {/* Item List */}
-            {itemList.length>0?
-            <FlatList
-                data={itemList}
-                renderItem={({ item }) => (
-                    <ItemListCard
-                        List={item}
-                        key={item.id}
-                    />
-                )}
-            />:
-            <Text style={{fontSize:20, fontFamily:'outfit-bold',color:'#a8a8a6',textAlign:'center',marginTop:'60%'}}>No Item Found</Text>}
+            {itemList.length > 0 ? (
+               loading === false ? (
+                  <FlatList
+                    data={itemList}
+                    onRefresh={getItemList}
+                    refreshing={loading}
+                    renderItem={({ item }) => (
+                  <ItemListCard
+                    List={item}
+                    key={item.id}
+                />
+            )}
+        />
+    ) : (
+        <ActivityIndicator size={'large'} color={'#000'} style={{marginTop:'30%'}} />
+    )
+) : (
+    <Text style={{fontSize: 20, fontFamily: 'outfit-bold', color: '#a8a8a6', textAlign: 'center', marginTop: '60%'}}>No Item Found</Text>
+)}
         </View>
     );
 }
@@ -95,3 +106,7 @@ const styles = StyleSheet.create({
         marginTop:30
     },
 });
+
+
+
+
