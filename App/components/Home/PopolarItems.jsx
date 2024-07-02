@@ -3,9 +3,10 @@ import React from 'react';
 import {collection, query, getDocs, limit} from 'firebase/firestore';
 import {db} from './../../configs/FirebaseConfig';
 import {useState, useEffect} from 'react';
+import {useRouter} from 'expo-router';
 
 export default function PopularItems() {
-
+    const router = useRouter();
     const [itemList, setItemList] = useState([]);
 
     useEffect(() => {
@@ -19,7 +20,7 @@ export default function PopularItems() {
 
         querySnapshot.forEach((doc) => {
             console.log(doc.data);
-            setItemList(prev => [...prev, doc.data()]);
+            setItemList(prev => [...prev, {id:doc.id,...doc.data()}]);
         });
     }
 
@@ -37,7 +38,7 @@ export default function PopularItems() {
                 renderItem={({item, index}) => (
                     
                        
-                            <View style={{borderWidth: 6, borderColor: '#fff', borderRadius: 12,backgroundColor:'#fff',marginLeft:10}} >
+                            <TouchableOpacity onPress={()=>router.push("/itemdetail/"+item?.id)} style={{borderWidth: 6, borderColor: '#fff', borderRadius: 12,backgroundColor:'#fff',marginLeft:10}} >
                                 <Image source={{uri: item?.imageUrl}}
                                         style={{width: 200, height: 130,  borderRadius: 12}}
                                 />
@@ -47,7 +48,7 @@ export default function PopularItems() {
                                 <Text style={{fontSize: 12, fontFamily: 'outfit-medium',marginTop:8,color:'#808080',paddingLeft:90}}>{item.rating}</Text>
                                 <Image source={require('./../../assets/images/star.png')} style={{width:13,height:13,marginTop:8}}/>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         
                     
                 )}

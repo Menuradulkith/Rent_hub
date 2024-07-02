@@ -4,13 +4,13 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function profile() {
 
-  /*  const navigation = useNavigation();
+    const navigation = useNavigation();
 
     useEffect(() => {
         navigation.setOptions({
             headerShown: true,
         });
-    }, []);*/
+    }, []);
 
     return (
         <View>

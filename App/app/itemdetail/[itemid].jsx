@@ -7,8 +7,10 @@ import Intro from '../../components/businessdetails/intro';
 import { Ionicons } from '@expo/vector-icons';
 import About from '../../components/businessdetails/About';
 import {useRouter} from 'expo-router';
+import Reviews from '../../components/businessdetails/Reviews';
 
 export default function ItemDetail(){
+
     const router =useRouter();
     const {itemid}=useLocalSearchParams();
     const [List, ListDetails]=useState();
@@ -24,7 +26,8 @@ export default function ItemDetail(){
         const docSnap=await getDoc(docRef);
         if(docSnap.exists()){
             console.log("Document data:", docSnap.data());
-            ListDetails(docSnap.data());
+           //change-- ListDetails(docSnap.data());
+            ListDetails({id:docSnap.id,...docSnap.data()});
             setLoading(false);
 
         }else{
@@ -38,11 +41,11 @@ export default function ItemDetail(){
 
                 <View style={{position:'absolute',zIndex:10, display:'flex',flexDirection:'row', justifyContent:'space-between',width:'100%',padding:15,marginTop:20}}>
                 <TouchableOpacity onPress={()=>router.back()}>
-                   <Ionicons name="arrow-back-circle" size={35} color="#fff" /> 
+                   <Ionicons name="arrow-back-circle" size={35} color="#6c47ff" /> 
                 </TouchableOpacity>
                 
                 
-                   <Ionicons name="heart-outline" size={35} color="black" />
+                   <Ionicons name="heart-outline" size={35} color="#6c47ff" />
                 </View>
             {loading ? 
                 <ActivityIndicator size="large" color="#000" style={{ marginTop: '30%' }} />:
@@ -53,9 +56,9 @@ export default function ItemDetail(){
                 <ScrollView >
                     <Intro List={List}/>
 
-                    
-
                     <About List={List}/>
+
+                    <Reviews List={List}/>
                 </ScrollView>
             }    
 
