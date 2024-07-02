@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, ActivityIndicator,styleSheet } from 'react-native';
+import { View, ActivityIndicator,styleSheet, ScrollView ,TouchableOpacity} from 'react-native';
 import { useNavigation, useLocalSearchParams } from 'expo-router';
 import {  doc, getDoc } from 'firebase/firestore';
 import { db } from '../../configs/FirebaseConfig';
 import Intro from '../../components/businessdetails/intro';
-import ActionButton from '../../components/businessdetails/ActionButton';
+import { Ionicons } from '@expo/vector-icons';
+import About from '../../components/businessdetails/About';
+import {useRouter} from 'expo-router';
 
 export default function ItemDetail(){
+    const router =useRouter();
     const {itemid}=useLocalSearchParams();
     const [List, ListDetails]=useState();
     const[loading,setLoading]=useState(false);
@@ -31,16 +34,29 @@ export default function ItemDetail(){
         }
     }
     return(
-        <View>
+        <View style={{backgroundColor: '#f0f0f0'}}>
+
+                <View style={{position:'absolute',zIndex:10, display:'flex',flexDirection:'row', justifyContent:'space-between',width:'100%',padding:15,marginTop:20}}>
+                <TouchableOpacity onPress={()=>router.back()}>
+                   <Ionicons name="arrow-back-circle" size={35} color="#fff" /> 
+                </TouchableOpacity>
+                
+                
+                   <Ionicons name="heart-outline" size={35} color="black" />
+                </View>
             {loading ? 
                 <ActivityIndicator size="large" color="#000" style={{ marginTop: '30%' }} />:
+
+
            
 
-                <View>
+                <ScrollView >
                     <Intro List={List}/>
+
                     
-                    <ActionButton/>
-                </View>
+
+                    <About List={List}/>
+                </ScrollView>
             }    
 
 
