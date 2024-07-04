@@ -24,11 +24,14 @@ export default function Slider(){
     }
     return(
         <View>
-            
+            <View style={{display:'flex',flexDirection:'row'}}>
+            <Text style={{ fontSize:18,fontFamily:'outfit-bold',marginTop:10,marginLeft:10}}>#Special</Text>
+            <Text style={{ fontSize:18,fontFamily:'outfit-bold',marginTop:10,marginLeft:3,color:'#ff0f0f'}}>Offers</Text>
+            </View>
             <FlatList
                 data={sliderList}
                 horizontal={true}
-                style={{paddingLeft:20,paddingTop:20}}
+                style={{paddingLeft:15,paddingTop:20}}
                 renderItem={({item,index})=>(
                     <Image source={{uri:item.imageUrl}}
                     style={{
@@ -39,6 +42,7 @@ export default function Slider(){
                         padding:20,
                         borderWidth: 2,
                         borderColor: '#000',
+                        marginTop:-10
                         
                     }} />
                 )}

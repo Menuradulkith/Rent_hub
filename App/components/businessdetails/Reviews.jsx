@@ -1,4 +1,4 @@
-import {View, Text, TextInput, TouchableOpacity,Image} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity,Image,KeyboardAvoidingView,Platform} from 'react-native'
 import { useUser } from '@clerk/clerk-expo';
 import {Rating} from 'react-native-ratings'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'; 
@@ -23,8 +23,8 @@ export default function Reviews({List}){
          })
         }
     return(
-        
-        <View style={{padding:20,backgroundColor:'#fff'}}>
+ 
+        <View  style={{padding:20,backgroundColor:'#fff'}}>
             <Text style={{fontFamily:'outfit-bold',fontSize:20}}>Reviews</Text>
             <View>
                 <Rating
@@ -43,7 +43,9 @@ export default function Reviews({List}){
                     <Text style={{fontFamily:'outfit',color:'#fff'}}>Submit</Text>
                 </TouchableOpacity>
             </View>
+            </View>
 
-        </View>
+        
+       
     )
 }

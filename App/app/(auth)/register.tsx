@@ -1,4 +1,4 @@
-import { Button, TextInput, View, StyleSheet,Pressable,Text } from 'react-native';
+import { Button, TextInput, View, StyleSheet,Pressable,Text,KeyboardAvoidingView, ScrollView ,Platform } from 'react-native';
 import { useSignUp } from '@clerk/clerk-expo';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useState } from 'react';
@@ -66,7 +66,12 @@ const Register = () => {
   };
 
   return (
-    <View style={styles.content}>
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior="padding"
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 100}
+  >
+    <ScrollView style={styles.content}>
         <View style={styles.welcome}>
         <LottieView style={{flex:1}} source={require('../../assets/animation/Animation - 1719238292553.json')} autoPlay loop/>
         </View>
@@ -116,7 +121,8 @@ const Register = () => {
         </View>
       )}
     </View>
-    </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

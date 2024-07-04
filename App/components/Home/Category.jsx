@@ -27,7 +27,7 @@ export default function Category(){
     return(
         <View >
             <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                <Text style={{ fontSize:18,fontFamily:'outfit-bold',marginTop:10,marginLeft:10}}>Category</Text>
+                <Text style={{ fontSize:18,fontFamily:'outfit',marginTop:10,marginLeft:10}}>Category</Text>
                 <Text style={{marginTop:10,marginRight:10}}>View All</Text>
             </View>
             <FlatList

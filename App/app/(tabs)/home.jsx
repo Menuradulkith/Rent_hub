@@ -5,6 +5,8 @@ import Slider from '../../components/Home/Slider'
 import Category from '../../components/Home/Category'
 import PopularItems from '../../components/Home/PopolarItems'
 
+import AllItem from '../../components/Home/AllItems'
+
 export default function home(){
     return(
         <View>
@@ -14,6 +16,7 @@ export default function home(){
             <Slider/>
             <Category/>
             <PopularItems/>
+            <AllItem/>
             
         </ScrollView>
         </View>
