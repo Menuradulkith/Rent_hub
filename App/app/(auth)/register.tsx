@@ -76,7 +76,7 @@ const Register = () => {
         <LottieView style={{flex:1}} source={require('../../assets/animation/Animation - 1719238292553.json')} autoPlay loop/>
         </View>
     <View style={styles.container}>
-    <Text style={{fontSize:35, fontFamily:'outfit-bold', paddingBottom:40,textAlign:'center'}}>Welcome!</Text>
+    <Text style={{fontSize:35, fontFamily:'outfit-bold', paddingBottom:40,textAlign:'center'}}>Create Your Account!!!</Text>
       <Stack.Screen options={{ headerBackVisible: !pendingVerification }} />
       <Spinner visible={loading} />
 

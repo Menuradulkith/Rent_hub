@@ -3,7 +3,15 @@ import { Stack } from 'expo-router';
 
 const CompoLayout = () => {
   return (
-    <Stack>
+    <Stack
+    screenOptions={{
+      headerShown:false,
+      headerStyle: {
+        backgroundColor: '#6c47ff',
+      },
+      headerTintColor: '#fff',
+      headerBackTitle: 'Back',
+    }}>
 
       <Stack.Screen
         name="start"
