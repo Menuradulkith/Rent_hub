@@ -1,6 +1,7 @@
 import {View, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import UserIntro from '../../components/Profile/UserIntro';
 
 export default function profile() {
 
@@ -23,7 +24,7 @@ export default function profile() {
 
     return (
         <View>
-           
+           <UserIntro/>
         </View>
     );
-}
+ }
